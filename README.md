@@ -1,3 +1,1 @@
 # devops-chapter
- 
-export GITHUB_TOKEN=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
