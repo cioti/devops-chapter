@@ -23,10 +23,4 @@ spec:
       enabled: true
       path: /mnt/chartmuseum
       existingClaim: chartmuseum-pvc
-    ingress:
-      enabled: true
-      ingressClassName: nginx
-      hosts:
-        - name: chartmuseum.io
-          path: /
       
