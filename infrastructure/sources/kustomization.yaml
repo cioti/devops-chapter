@@ -4,3 +4,4 @@ namespace: flux-system
 resources:
   - chartmuseum.yaml
   - bitnami.yaml
+  - nginx.yaml
