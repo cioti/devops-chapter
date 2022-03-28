@@ -22,3 +22,9 @@ spec:
       enabled: true
       path: /mnt/chartmuseum
       existingClaim: chartmuseum-pvc
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - name:  alex-chartmuseum.ddns.net
+          path: /
