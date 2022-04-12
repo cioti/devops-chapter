@@ -26,5 +26,5 @@ spec:
       enabled: true
       ingressClassName: nginx
       hosts:
-        - name:  alex-chartmuseum.ddns.net
+        - name: alexpc.ddnsking.com
           path: /
