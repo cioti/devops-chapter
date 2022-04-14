@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build
+
+# Controls when the workflow will run
+on:
+  pull_request_review:
+   types: [submitted]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+        token: ${{ secrets.GH_TOKEN }}
+    - name: Build monorepo
+      id: build_monorepo
+# Set environment variables for ci process.    
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        ACTION: git_action_on_pr_approved
+        BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+# Set shell scripts permissions and execute them.
+      shell: bash
+      run: |
+          chmod +x ./build.sh
+          ./build.sh
