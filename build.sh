@@ -25,16 +25,7 @@ build () {
     echo "Build ${DIRNAME} (${MKFILE_FULL})"
     DIR=`dirname ${MKFILE_FULL}`
     VERSION_FILE=`echo "${DIR}/VERSION.ver"`
-    echo "version = ${VERSION_FILE}"
-    echo "makefile = ${MKFILE}"
-    echo "action = ${ACTION}"
-    echo "dir = ${DIR}"
-    if test -f "$MKFILE"; then
-      echo "$MKFILE exists."
-    fi
-    if test -f "$MKFILE_FULL"; then
-      echo "$MKFILE_FULL full exists."
-    fi
+    chmod +x $MKFILE
     $MKFILE make ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR}
   
     echo "makefile build ran"
