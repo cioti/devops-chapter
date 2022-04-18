@@ -26,12 +26,16 @@ build () {
     DIR=`dirname ${MKFILE_FULL}`
     VERSION_FILE=`echo "${DIR}/VERSION.ver"`
     echo "version = ${VERSION_FILE}"
-    INCLUDE_MAKEFILE=$MKFILE make ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR} GH_TOKEN=${GH_TOKEN}
-                      
-     if [ $? -ne 0 ]; then
-         echo "Build failed"         
-         exit 1
-     fi
+    echo "makefile = ${MKFILE}"
+    echo "action = ${ACTION}"
+    echo "dir = ${DIR}"
+    $MKFILE make ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR}
+  
+    echo "makefile build ran"
+    if [ $? -ne 0 ]; then
+      echo "Build failed"         
+      exit 1
+    fi
 
     echo "${MKFILE_FULL}" > BUILT_LIST
   else
@@ -40,6 +44,7 @@ build () {
 }
 
 git diff-tree --name-only -r HEAD HEAD^ | while read line; do  
-    echo "line is $line"
+    echo "building line: $line"
     build `dirname $line`
+    echo "------------------------------"
 done
