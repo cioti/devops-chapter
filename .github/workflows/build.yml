@@ -29,7 +29,7 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        ACTION: git_action_on_pr_approved
+        ACTION: build
         BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
 # Set shell scripts permissions and execute them.
       shell: bash
