@@ -11,7 +11,7 @@ CHART_FULL_NAME= $(IMAGE_NAME)-chart
 build:
 	echo "Build ping-service started."
 	echo "${DOCKER_TOKEN}" | docker login --username ${DOCKER_USERNAME} --password-stdin
-	docker build --tag $(IMAGE_FULL_NAME):$(GETVERSION) -f $(PATH_FULL)/Dockerfile .
+	docker build --tag $(IMAGE_FULL_NAME):$(GETVERSION) -f $(DIR)/Dockerfile .
 
 deploy:
-	echo "deploy phase"
+	echo "deploy phase"s

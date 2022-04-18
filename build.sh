@@ -1,3 +1,4 @@
+# create tmp file to track built services.
 > BUILT_LIST
 
 build () {
@@ -23,11 +24,9 @@ build () {
   if [[ $BUILT != *"${MKFILE_FULL}"* ]]; then
     echo "Build ${DIRNAME} (${MKFILE_FULL})"
     DIR=`dirname ${MKFILE_FULL}`
-    VERSION_FULL="${DIR/VERSION.ver}"
-    echo "version = ${VERSION_FULL}"
-    PATH_FULL="${MKFILE_FULL/Makefile/}"
-    INCLUDE_MAKEFILE=$MKFILE make ${ACTION} WORKDIR=${DIRNAME} VERSION_FULL=${VERSION_FULL} BRANCH_NAME=${BRANCH_NAME} \
-                       PATH_FULL=${PATH_FULL::-1} GH_TOKEN=${GH_TOKEN}
+    VERSION_FILE=`echo "${DIR}/VERSION.ver"`
+    echo "version = ${VERSION_FILE}"
+    INCLUDE_MAKEFILE=$MKFILE make ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR} GH_TOKEN=${GH_TOKEN}
                       
      if [ $? -ne 0 ]; then
          echo "Build failed"         
