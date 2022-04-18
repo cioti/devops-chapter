@@ -1,3 +1,4 @@
+> BUILT_LIST
 
 build () {
   echo "Build input = $1"  
@@ -34,7 +35,6 @@ build () {
      fi
 
     echo "${MKFILE_FULL}" > BUILT_LIST
-    echo "BuiltList = ${BUILT_LIST}"
   else
     echo "Skip ${MKFILE_FULL} already built"
   fi
