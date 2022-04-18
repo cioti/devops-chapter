@@ -29,6 +29,12 @@ build () {
     echo "makefile = ${MKFILE}"
     echo "action = ${ACTION}"
     echo "dir = ${DIR}"
+    if test -f "$MKFILE"; then
+      echo "$MKFILE exists."
+    fi
+    if test -f "$MKFILE_FULL"; then
+      echo "$MKFILE_FULL full exists."
+    fi
     $MKFILE make ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR}
   
     echo "makefile build ran"
