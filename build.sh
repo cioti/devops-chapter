@@ -26,9 +26,8 @@ build () {
     DIR=`dirname ${MKFILE_FULL}`
     VERSION_FILE=`echo "${DIR}/VERSION.ver"`
     chmod +x $MKFILE
-    $MKFILE make ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR}
+    TEST=$MKFILE make ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR}
   
-    echo "makefile build ran"
     if [ $? -ne 0 ]; then
       echo "Build failed"         
       exit 1
