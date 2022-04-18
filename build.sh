@@ -3,10 +3,10 @@ build () {
   echo "Build input = $1"  
   DIRNAME=`echo $1`
   MKFILE=`echo "${DIRNAME}/Makefile"`
-  DEPTH=${#{1//[^\/]/}}
+  DEPTH=${1//[^\/]/}
 
   # Try walking up the path until we find a makefile.
-  for (( n=$DEPTH; n>0; --n )); do    
+  for (( n=${#DEPTH}; n>0; --n )); do    
     if [ -f $MKFILE ]; then      
       break
     else      
