@@ -1,3 +1,7 @@
+#!/bin/bash
+# set -x
+# set -f
+
 # create tmp file to track built services.
 > BUILT_LIST
 
@@ -25,7 +29,6 @@ build () {
     echo "Build ${DIRNAME} (${MKFILE_FULL})"
     DIR=`dirname ${MKFILE_FULL}`
     VERSION_FILE=`echo "${DIR}/VERSION.ver"`
-    chmod +x $MKFILE
     TEST=$MKFILE make ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR}
   
     if [ $? -ne 0 ]; then
