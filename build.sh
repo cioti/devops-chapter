@@ -1,12 +1,18 @@
+#!/bin/bash
+# set -x
+# set -f
+
+# create tmp file to track built services.
+> BUILT_LIST
 
 build () {
   echo "Build input = $1"  
   DIRNAME=`echo $1`
   MKFILE=`echo "${DIRNAME}/Makefile"`
-  DEPTH=${#{1//[^\/]/}}
+  DEPTH=${1//[^\/]/}
 
   # Try walking up the path until we find a makefile.
-  for (( n=$DEPTH; n>0; --n )); do    
+  for (( n=${#DEPTH}; n>0; --n )); do    
     if [ -f $MKFILE ]; then      
       break
     else      
@@ -22,25 +28,22 @@ build () {
   if [[ $BUILT != *"${MKFILE_FULL}"* ]]; then
     echo "Build ${DIRNAME} (${MKFILE_FULL})"
     DIR=`dirname ${MKFILE_FULL}`
-    VERSION_FULL="${DIR/VERSION.ver}"
-    echo "version = ${VERSION_FULL}"
-    PATH_FULL="${MKFILE_FULL/Makefile/}"
-    INCLUDE_MAKEFILE=$MKFILE make ${ACTION} WORKDIR=${DIRNAME} VERSION_FULL=${VERSION_FULL} BRANCH_NAME=${BRANCH_NAME} \
-                       PATH_FULL=${PATH_FULL::-1} GH_TOKEN=${GH_TOKEN}
-                      
-     if [ $? -ne 0 ]; then
-         echo "Build failed"         
-         exit 1
-     fi
+    VERSION_FILE=`echo "${DIR}/VERSION.ver"`
+    make -f $MKFILE ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR}
+  
+    if [ $? -ne 0 ]; then
+      echo "Build failed"         
+      exit 1
+    fi
 
     echo "${MKFILE_FULL}" > BUILT_LIST
-    echo "BuiltList = ${BUILT_LIST}"
   else
-    echo "Skip ${MKFILE_FULL} already built"
+    echo "Skip ${MKFILE_FULL}; Already built"
   fi
 }
 
 git diff-tree --name-only -r HEAD HEAD^ | while read line; do  
-    echo "line is $line"
+    echo "processing modified file: $line"
     build `dirname $line`
+    echo "------------------------------"
 done
