@@ -8,12 +8,12 @@ CHART_FULL_NAME= $(IMAGE_NAME)-chart
 
 
 build:
-	echo "Build ping-service started."
+	echo "Build $(IMAGE_NAME) started."
 	echo "${DOCKER_TOKEN}" | docker login --username ${DOCKER_USERNAME} --password-stdin
 	docker build --tag $(IMAGE_FULL_NAME):$(GETVERSION) -f $(DIR)/Dockerfile .
-	echo "Build ping-service finished."
+	echo "Build $(IMAGE_NAME) finished."
 deploy:
-	echo "Start ping-service deploy phase."
+	echo "Start $(IMAGE_NAME) deploy phase."
 	$(eval VERSION=$(shell sudo ./semver.sh $(VERSION_FILE) release-patch))
 	sudo yq e '.appVersion = "$(GETVERSION)"' -i $(DIR)/deploy/Chart.yaml
 	sudo yq e '.version = "$(GETVERSION)"' -i $(DIR)/deploy/Chart.yaml
@@ -26,3 +26,5 @@ deploy:
 	echo "${DOCKER_TOKEN}" | docker login --username ${DOCKER_USERNAME} --password-stdin
 	docker build --tag $(IMAGE_FULL_NAME):$(GETVERSION) -f $(DIR)/Dockerfile .
 	docker push $(IMAGE_FULL_NAME):$(GETVERSION)
+	helm package $(DIR)/deploy --dependency-update
+	echo "Finish $(IMAGE_NAME) deploy phase."
