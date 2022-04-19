@@ -29,7 +29,7 @@ build () {
     echo "Build ${DIRNAME} (${MKFILE_FULL})"
     DIR=`dirname ${MKFILE_FULL}`
     VERSION_FILE=`echo "${DIR}/VERSION.ver"`
-    TEST=$MKFILE make ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR}
+    INCLUDE_MAKEFILE=$MKFILE make ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR} GH_TOKEN=${GH_TOKEN}
   
     if [ $? -ne 0 ]; then
       echo "Build failed"         
