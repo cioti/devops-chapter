@@ -29,7 +29,7 @@ build () {
     echo "Build ${DIRNAME} (${MKFILE_FULL})"
     DIR=`dirname ${MKFILE_FULL}`
     VERSION_FILE=`echo "${DIR}/VERSION.ver"`
-    make -f $MKFILE ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR} GH_TOKEN=${GH_TOKEN}
+    make -f $MKFILE ${ACTION} VERSION_FILE=${VERSION_FILE} DIR=${DIR}
   
     if [ $? -ne 0 ]; then
       echo "Build failed"         
@@ -38,12 +38,12 @@ build () {
 
     echo "${MKFILE_FULL}" > BUILT_LIST
   else
-    echo "Skip ${MKFILE_FULL} already built"
+    echo "Skip ${MKFILE_FULL}; Already built"
   fi
 }
 
 git diff-tree --name-only -r HEAD HEAD^ | while read line; do  
-    echo "building line: $line"
+    echo "processing modified file: $line"
     build `dirname $line`
     echo "------------------------------"
 done
