@@ -6,7 +6,6 @@ IMAGE_NAME = ping-service
 IMAGE_FULL_NAME = alexc94/$(IMAGE_NAME)
 CHART_FULL_NAME= $(IMAGE_NAME)-chart
 
-
 build:
 	echo "Build $(IMAGE_NAME) started."
 	echo "${DOCKER_TOKEN}" | docker login --username ${DOCKER_USERNAME} --password-stdin
@@ -26,5 +25,8 @@ deploy:
 	echo "${DOCKER_TOKEN}" | docker login --username ${DOCKER_USERNAME} --password-stdin
 	docker build --tag $(IMAGE_FULL_NAME):$(GETVERSION) -f $(DIR)/Dockerfile .
 	docker push $(IMAGE_FULL_NAME):$(GETVERSION)
+	helm repo add alex-charts http://alexpc.ddnsking.com:8080
+	helm repo update
 	helm package $(DIR)/deploy --dependency-update
+	wget --post-file $(CHART_FULL_NAME)-$(GETVERSION).tgz http://alexpc.ddnsking.com:8080/api/charts
 	echo "Finish $(IMAGE_NAME) deploy phase."
