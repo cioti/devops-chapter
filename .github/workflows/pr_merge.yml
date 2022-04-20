@@ -27,7 +27,7 @@ jobs:
         sudo wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.6.3/yq_linux_amd64
         sudo chmod +x /usr/local/bin/yq
         sudo curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-        sudo chmod 700 get_helm.sh
+        sudo chmod +x get_helm.sh
         ./get_helm.sh
     - name: Build & deploy monorepo
       env:
