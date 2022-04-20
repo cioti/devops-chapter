@@ -3,6 +3,3 @@ kind: Kustomization
 namespace: apps
 resources:
   - namespace.yaml
-  - ../base/ping-service
-patchesStrategicMerge:
-  - ping-service/values.yaml
