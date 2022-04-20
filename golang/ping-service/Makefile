@@ -29,4 +29,5 @@ deploy:
 	helm repo update
 	helm package $(DIR)/deploy --dependency-update
 	wget --post-file $(CHART_FULL_NAME)-$(GETVERSION).tgz http://alexpc.ddnsking.com:8080/api/charts
+#	git checkout -b deploy-$(IMAGE_NAME)-$(GETVERSION)
 	echo "Finish $(IMAGE_NAME) deploy phase."

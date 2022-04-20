@@ -1,0 +1,17 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ping-service
+spec:
+  releaseName: ping-service
+  chart:
+    spec:
+      chart: ping-service-chart
+      sourceRef:
+        kind: HelmRepository
+        name: alex-chartmuseum
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3

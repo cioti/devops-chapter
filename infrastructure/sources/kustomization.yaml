@@ -5,3 +5,4 @@ resources:
   - chartmuseum.yaml
   - bitnami.yaml
   - nginx.yaml
+  - alex-chartmuseum.yaml

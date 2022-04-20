@@ -1,0 +1,7 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: alex-chartmuseum
+spec:
+  url: http://alexpc.ddnsking.com:8080
+  interval: 10m
