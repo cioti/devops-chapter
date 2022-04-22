@@ -30,6 +30,7 @@ jobs:
         sudo chmod +x get_helm.sh
         ./get_helm.sh
     - name: Build & deploy monorepo
+      id: build_and_deploy
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
@@ -39,4 +40,8 @@ jobs:
           chmod +x ./semver.sh
           chmod +x ./build.sh
           ./build.sh
+    - name: test outputs
+      shell: bash
+      run: echo ${{join(steps.build_and_deploy.outputs.*, ',')}}
+
 

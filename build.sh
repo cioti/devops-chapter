@@ -42,8 +42,15 @@ build () {
   fi
 }
 
-git diff-tree --name-only -r HEAD HEAD^ | while read line; do  
-    echo "processing modified file: $line"
-    build `dirname $line`
-    echo "------------------------------"
+# git diff-tree --name-only -r HEAD HEAD^ | while read line; do  
+#     echo "processing modified file: $line"
+#     build `dirname $line`
+#     echo "------------------------------"
+# done
+
+StringVal="golang/ping-service/main.go golang/pong-service/main.go"
+
+# Iterate the string variable using for loop
+for val in $StringVal; do
+  build `dirname $val`
 done
