@@ -42,6 +42,11 @@ jobs:
           ./build.sh
     - name: test outputs
       shell: bash
-      run: echo ${{join(steps.build_and_deploy.outputs.*, ',')}}
+      run: |
+        STR=${{join(steps.build_and_deploy.outputs.*, ',')}}
+        echo $STR
+        for str in ${STR//,/ } ; do \
+          echo "+ \"$str\"" \
+        done \
 
 
