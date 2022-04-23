@@ -10,15 +10,16 @@ values_path=`echo $APPS_PATH/$svc_name/values.yaml`
 if ! [ -f $values_path ]; then  
     exit 1
 fi
-git config --global user.email "service@account.net"
-git config --global user.name "service_account"
+git config --global user.email "alexandruc@thelotter.com"
+git config --global user.name "alexc-tl"
 git checkout -b deploy-$svc_name-1.9.9
 yq e '.spec.chart.spec.version = "1.9.9"' -i $values_path
 
 git add -A $values_path
 git commit -m "test"
 git push -u origin deploy-$svc_name-1.9.9
-gh auth login --with-token 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
+
+gh auth login --with-token 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
 gh pr create --title "The bug is fixed" --body "Everything works again"
 }
 
