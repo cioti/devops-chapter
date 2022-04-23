@@ -17,14 +17,14 @@ git checkout -b $branch_name
 yq e ".spec.chart.spec.version = \"$version\"" -i $values_path
 
 git add -A $values_path
-git commit -m "Release $svc_name v$version to staging"
+git commit -m "Version bump $svc_name $version"
 git push -u origin $branch_name
 
 curl --request POST \
     --url https://api.github.com/repos/cioti/devops-chapter/pulls \
     --header "authorization: Bearer $GH_SVC_ACCOUNT_TOKEN" \
     --header 'content-type: application/json' \
-    --data "{\"title\":\"test\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"cioti:$branch_name\",\"base\":\"main\"}"
+    --data "{\"title\":\"Release $svc_name v$version to staging\",\"body\":\"Please review these changes in order for flux to sync the changes in staging!\",\"head\":\"cioti:$branch_name\",\"base\":\"main\"}"
 }
 
 # split services by ','
