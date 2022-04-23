@@ -19,10 +19,9 @@ git add -A $values_path
 git commit -m "test"
 git push -u origin deploy-$svc_name-1.9.9
 
-auth_header=`echo authorization: Bearer $GH_SVC_ACCOUNT_TOKEN`
 curl --request POST \
     --url https://api.github.com/repos/cioti/devops-chapter/pulls \
-    --header $auth_header \
+    --header "authorization: Bearer $GH_SVC_ACCOUNT_TOKEN" \
     --header 'content-type: application/json' \
     --data '{"title":"test","body":"Please pull these awesome changes in!","head":"cioti:test-ci","base":"main"}'
 }
