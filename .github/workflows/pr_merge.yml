@@ -34,7 +34,7 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-        GH_TOKEN: ${{ secrets.GH_SVC_ACCOUNT_TOKEN }}
+        GH_SVC_ACCOUNT_TOKEN: ${{ secrets.GH_SVC_ACCOUNT_TOKEN }}
         ACTION: deploy
       shell: bash
       run: |
