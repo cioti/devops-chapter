@@ -27,7 +27,7 @@ curl --request POST \
     --header 'authorization: Bearer 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' \
     --header 'content-type: application/json' \
     --data '{
-                "title":"Amazing new feature","body":"Please pull these awesome changes in!","head":"cioti:deploy-${svc_name}-1.9.9","base":"main"
+                "title":"Amazing new feature","body":"Please pull these awesome changes in!","head":"cioti:test-ci","base":"main"
             }'
 }
 
