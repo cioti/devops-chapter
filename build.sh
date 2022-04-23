@@ -47,3 +47,4 @@ git diff-tree --name-only -r HEAD HEAD^ | while read line; do
     build `dirname $line`
     echo "------------------------------"
 done
+
