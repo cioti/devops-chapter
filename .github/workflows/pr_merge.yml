@@ -29,25 +29,24 @@ jobs:
         sudo curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
         sudo chmod +x get_helm.sh
         ./get_helm.sh
-    - name: Build & deploy monorepo
-      id: build_and_deploy
+    - name: Build monorepo
+      id: build
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-        GH_SVC_ACCOUNT_TOKEN: ${{ secrets.GH_SVC_ACCOUNT_TOKEN }}
         ACTION: deploy
       shell: bash
       run: |
           chmod +x ./semver.sh
           chmod +x ./build.sh
           ./build.sh
-    - name: test outputs
+    - name: Deploy
       shell: bash
       env:
         GH_SVC_ACCOUNT_TOKEN: ${{ secrets.GH_SVC_ACCOUNT_TOKEN }}
       run: |
         chmod +x ./deploy.sh
-        ./deploy.sh ${{join(steps.build_and_deploy.outputs.*, ',')}}
+        ./deploy.sh ${{join(steps.build.outputs.*, ',')}}
         
 
 

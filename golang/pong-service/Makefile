@@ -13,6 +13,5 @@ build:
 	echo "Build $(IMAGE_NAME) finished."
 deploy:
 	echo "Start $(IMAGE_NAME) deploy phase."
-	echo "::set-output name=pong-service::pong-service"
-#	git checkout -b deploy-$(IMAGE_NAME)-$(GETVERSION)
+	echo "::set-output name=$(IMAGE_NAME)::$(IMAGE_NAME):$(GETVERSION)"
 	echo "Finish $(IMAGE_NAME) deploy phase."
