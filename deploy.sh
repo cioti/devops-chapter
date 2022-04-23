@@ -24,11 +24,9 @@ echo "token is ${GH_SVC_ACCOUNT_TOKEN}"
 echo "token2 is ${TOKEN2}"
 curl --request POST \
     --url https://api.github.com/repos/cioti/devops-chapter/pulls \
-    --header 'authorization: Bearer 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' \
+    --header 'authorization: Bearer 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' \
     --header 'content-type: application/json' \
-    --data '{
-                "title":"Amazing new feature","body":"Please pull these awesome changes in!","head":"cioti:test-ci","base":"main"
-            }'
+    --data '{"title":"test","body":"Please pull these awesome changes in!","head":"cioti:test-ci","base":"main"}'
 }
 
 # split services by ','
