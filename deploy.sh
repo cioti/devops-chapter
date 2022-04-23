@@ -24,7 +24,7 @@ echo "token is ${GH_SVC_ACCOUNT_TOKEN}"
 echo "token2 is ${TOKEN2}"
 curl --request POST \
     --url https://api.github.com/repos/cioti/devops-chapter/pulls \
-    --header 'authorization: Bearer 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' \
+    --header 'authorization: Bearer ${TOKEN2}' \
     --header 'content-type: application/json' \
     --data '{"title":"test","body":"Please pull these awesome changes in!","head":"cioti:test-ci","base":"main"}'
 }
