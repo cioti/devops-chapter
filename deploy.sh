@@ -18,7 +18,7 @@ yq e '.spec.chart.spec.version = "1.9.9"' -i $values_path
 git add -A $values_path
 git commit -m "test"
 git push -u origin deploy-$svc_name-1.9.9
-gh auth login
+gh auth login --with-token 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
 gh pr create --title "The bug is fixed" --body "Everything works again"
 }
 
