@@ -19,7 +19,8 @@ git add -A $values_path
 git commit -m "test"
 git push -u origin deploy-$svc_name-1.9.9
 
-gh auth login --with-token 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
+echo "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" > .githubtoken
+gh auth login --with-token < .githubtoken
 gh pr create --title "The bug is fixed" --body "Everything works again"
 }
 
