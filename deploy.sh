@@ -6,24 +6,25 @@ createPullRequest(){
 svc_name=$1
 echo "Service processed is $svc_name"
 values_path=`echo $APPS_PATH/$svc_name/values.yaml`
-
+version="1.9.9"
+branch_name=`echo release-$svc_name-$version-to-staging`
 if ! [ -f $values_path ]; then  
     exit 1
 fi
-git config --global user.email "alexandruc@thelotter.com"
-git config --global user.name "alexc-tl"
-git checkout -b deploy-$svc_name-1.9.9
-yq e '.spec.chart.spec.version = "1.9.9"' -i $values_path
+git config --global user.email "service@account.net"
+git config --global user.name "service_account"
+git checkout -b $branch_name
+yq e ".spec.chart.spec.version = \"$version\"" -i $values_path
 
 git add -A $values_path
-git commit -m "test"
-git push -u origin deploy-$svc_name-1.9.9
+git commit -m "Release $svc_name v$version to staging"
+git push -u origin $branch_name
 
 curl --request POST \
     --url https://api.github.com/repos/cioti/devops-chapter/pulls \
     --header "authorization: Bearer $GH_SVC_ACCOUNT_TOKEN" \
     --header 'content-type: application/json' \
-    --data '{"title":"test","body":"Please pull these awesome changes in!","head":"cioti:test-ci","base":"main"}'
+    --data "{\"title\":\"test\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"cioti:$branch_name\",\"base\":\"main\"}"
 }
 
 # split services by ','
