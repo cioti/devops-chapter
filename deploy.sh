@@ -1,6 +1,5 @@
 
 SERVICES=$1
-TOKEN2=$2
 APPS_PATH="apps/staging"
 
 createPullRequest(){
@@ -24,7 +23,7 @@ echo "token is ${GH_SVC_ACCOUNT_TOKEN}"
 echo "token2 is ${TOKEN2}"
 curl --request POST \
     --url https://api.github.com/repos/cioti/devops-chapter/pulls \
-    --header 'authorization: Bearer ${TOKEN2}' \
+    --header 'authorization: Bearer ${GH_SVC_ACCOUNT_TOKEN}' \
     --header 'content-type: application/json' \
     --data '{"title":"test","body":"Please pull these awesome changes in!","head":"cioti:test-ci","base":"main"}'
 }

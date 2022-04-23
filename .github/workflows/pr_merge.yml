@@ -43,9 +43,11 @@ jobs:
           ./build.sh
     - name: test outputs
       shell: bash
+      env:
+        GH_SVC_ACCOUNT_TOKEN: ${{ secrets.GH_SVC_ACCOUNT_TOKEN }}
       run: |
         chmod +x ./deploy.sh
-        ./deploy.sh ${{join(steps.build_and_deploy.outputs.*, ',')}} ${{ secrets.GH_SVC_ACCOUNT_TOKEN }}
+        ./deploy.sh ${{join(steps.build_and_deploy.outputs.*, ',')}}
         
 
 
