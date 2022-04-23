@@ -3,8 +3,10 @@ SERVICES=$1
 APPS_PATH="apps/staging"
 
 createPullRequest(){
+svc_name_with_version=$1
+echo $svc_name_with_version
 #service should be in the form name:version -> split by :
-$svcArr=${1//:/ }
+$svcArr=(${svc_name_with_version//:/ })
 svc_name=svcArr[0]
 svc_version=svcArr[1]
 
