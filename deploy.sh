@@ -4,11 +4,10 @@ APPS_PATH="apps/staging"
 
 createPullRequest(){
 svc_name_with_version=$1
-echo $svc_name_with_version
 #service should be in the form name:version -> split by :
-$svcArr=(${svc_name_with_version//:/ })
-svc_name=svcArr[0]
-svc_version=svcArr[1]
+arr=(${svc_name_with_version//:/ })
+svc_name=arr[0]
+svc_version=arr[1]
 
 echo "Service processed is $svc_name with version $svc_version"
 values_path=`echo $APPS_PATH/$svc_name/values.yaml`
