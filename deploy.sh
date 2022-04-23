@@ -1,26 +1,6 @@
 
 SERVICES=$1
 APPS_PATH="apps/staging"
-pull_request() {
-  to_branch=$1
-  if [ -z $to_branch ]; then
-    to_branch="main"
-  fi
-  
-  # try the upstream branch if possible, otherwise origin will do
-  upstream=$(git config --get remote.upstream.url)
-  origin=$(git config --get remote.origin.url)
-  if [ -z $upstream ]; then
-    upstream=$origin
-  fi
-  
-  to_user=$(echo $upstream | sed -e 's/.*[\/:]\([^/]*\)\/[^/]*$/\1/')
-  from_user=$(echo $origin | sed -e 's/.*[\/:]\([^/]*\)\/[^/]*$/\1/')
-  repo=$(basename `git rev-parse --show-toplevel`)
-  from_branch=$(git rev-parse --abbrev-ref HEAD)
-  open "https://github.com/$to_user/$repo/pull/new/$to_user:$to_branch...$from_user:$from_branch"
-}
-
 
 createPullRequest(){
 svc_name=$1
@@ -39,10 +19,14 @@ git add -A $values_path
 git commit -m "test"
 git push -u origin deploy-$svc_name-1.9.9
 
-pull_request
-# echo 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 > .githubtoken
-# gh auth login --with-token < .githubtoken
-# gh pr create --title "The bug is fixed" --body "Everything works again"
+echo "token is ${GH_SVC_ACCOUNT_TOKEN}"
+curl --request POST \
+    --url https://api.github.com/repos/cioti/devops-chapter/pulls \
+    --header 'authorization: Bearer ${GH_SVC_ACCOUNT_TOKEN}}' \
+    --header 'content-type: application/json' \
+    --data '{
+                "title":"Amazing new feature","body":"Please pull these awesome changes in!","head":"cioti:deploy-${svc_name}-1.9.9","base":"main"
+            }'
 }
 
 # split services by ','
