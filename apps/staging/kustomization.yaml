@@ -4,5 +4,7 @@ namespace: apps
 resources:
   - namespace.yaml
   - ../base/ping-service
+  - ../base/pong-service
 patchesStrategicMerge:
   - ping-service/values.yaml
+  - pong-service/values.yaml
