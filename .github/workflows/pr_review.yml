@@ -23,8 +23,6 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
     - name: Build monorepo
       env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-        DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
         ACTION: build
       shell: bash
       run: |
