@@ -1,0 +1,17 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: pong-service
+spec:
+  releaseName: pong-service
+  chart:
+    spec:
+      chart: pong-service-chart
+      sourceRef:
+        kind: HelmRepository
+        name: alex-chartmuseum
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
